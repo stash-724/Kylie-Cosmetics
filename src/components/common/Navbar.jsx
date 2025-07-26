@@ -1,104 +1,139 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { ShoppingBag, Menu, X, User } from "lucide-react";
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ShoppingCart, User } from 'lucide-react';
+import { DarkModeToggle, ThemeSelector } from './DarkModeProvider';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "Products", path: "/products" },
-    { name: "Face", path: "/category/FACE" },
-    { name: "Lips", path: "/category/LIP" },
-    { name: "Eyes", path: "/category/EYES" },
-    { name: "Quick Buy", path: "/quick-buy" },
+    { to: '/', label: 'Home' },
+    { to: '/products', label: 'Products' },
+    { to: '/quickbuy', label: 'Best Sellers' },
+    { to: '/about', label: 'About' }
   ];
 
-  const isActive = (path) => location.pathname === path;
-
   return (
-    <nav className="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+    <motion.nav 
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className="sticky top-0 z-50 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-              KC
-            </div>
-            <span className="text-lg font-semibold text-gray-800">
-              Kylie Cosmetics
-            </span>
+          <Link to="/" className="flex items-center">
+            <motion.div 
+              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-2"
+            >
+              <div className="w-10 h-10 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-lg">KC</span>
+              </div>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">
+                Kylie Cosmetics
+              </span>
+            </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
-                to={link.path}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  isActive(link.path)
-                    ? "text-pink-600 border-b-2 border-pink-600 pb-1"
-                    : "text-gray-700 hover:text-pink-600"
-                }`}
+                key={link.to}
+                to={link.to}
+                className="text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 font-medium transition-colors duration-200 relative group"
               >
-                {link.name}
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-pink-600 group-hover:w-full transition-all duration-300"></span>
               </Link>
             ))}
           </div>
 
-          {/* Right Side Icons */}
-          <div className="flex items-center space-x-4">
-            {/* Cart Icon */}
-            <button className="relative p-2 text-gray-700 hover:text-pink-600 transition-colors">
-              <ShoppingBag size={20} />
-              <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                0
-              </span>
-            </button>
-
-            {/* User Icon */}
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center space-x-4">
+            <DarkModeToggle />
+            <ThemeSelector />
+            
             <Link
               to="/login"
-              className="p-2 text-gray-700 hover:text-pink-600 transition-colors"
+              className="p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
-              <User size={20} />
+              <User className="w-5 h-5" />
             </Link>
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-700 hover:text-pink-600"
+            
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
-              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+              <ShoppingCart className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
+                3
+              </span>
+            </motion.button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2">
+            <DarkModeToggle />
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 text-gray-700 dark:text-gray-300"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </motion.button>
           </div>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-gray-100 py-4">
-            <div className="flex flex-col space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors duration-200 ${
-                    isActive(link.path)
-                      ? "text-pink-600 font-semibold"
-                      : "text-gray-700 hover:text-pink-600"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden border-t border-gray-200 dark:border-gray-700"
+            >
+              <div className="py-4 space-y-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+                <div className="flex items-center justify-between px-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                  <Link
+                    to="/login"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300"
+                  >
+                    <User className="w-5 h-5" />
+                    <span>Login</span>
+                  </Link>
+                  
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    className="relative p-2 text-gray-700 dark:text-gray-300"
+                  >
+                    <ShoppingCart className="w-5 h-5" />
+                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
+                      3
+                    </span>
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 
