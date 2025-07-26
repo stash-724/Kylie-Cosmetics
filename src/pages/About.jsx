@@ -1,311 +1,298 @@
+// src/pages/About.jsx
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Star, Award, Users, Sparkles, Instagram } from 'lucide-react';
+import { Heart, Star, Award, Users, Sparkles, Globe } from 'lucide-react';
 
 const About = () => {
-  const timelineData = [
-    {
-      year: "2023",
-      title: "The Vision",
-      description: "Started with a dream to create inclusive, high-quality cosmetics for every skin tone and style.",
-      icon: <Sparkles className="w-6 h-6" />
-    },
-    {
-      year: "2024",
-      title: "First Launch",
-      description: "Released our signature lip kit collection, featuring 12 versatile shades loved by beauty enthusiasts.",
-      icon: <Heart className="w-6 h-6" />
-    },
-    {
-      year: "2024",
-      title: "Recognition",
-      description: "Won 'Best New Beauty Brand' award and reached 100K+ satisfied customers worldwide.",
-      icon: <Award className="w-6 h-6" />
-    },
-    {
-      year: "2025",
-      title: "Innovation",
-      description: "Expanding into skincare and sustainable packaging, leading the future of clean beauty.",
-      icon: <Star className="w-6 h-6" />
-    }
+  const stats = [
+    { icon: Users, label: 'Happy Customers', value: '10M+', color: 'pink' },
+    { icon: Globe, label: 'Countries', value: '50+', color: 'purple' },
+    { icon: Award, label: 'Beauty Awards', value: '25+', color: 'pink' },
+    { icon: Star, label: 'Average Rating', value: '4.8/5', color: 'purple' }
   ];
 
-  const achievements = [
-    { number: "500K+", label: "Happy Customers", icon: <Users className="w-8 h-8" /> },
-    { number: "50+", label: "Product Shades", icon: <Heart className="w-8 h-8" /> },
-    { number: "25+", label: "Awards Won", icon: <Award className="w-8 h-8" /> },
-    { number: "100%", label: "Cruelty Free", icon: <Sparkles className="w-8 h-8" /> }
-  ];
-
-  const testimonials = [
+  const values = [
     {
-      name: "Priya Sharma",
-      role: "Beauty Influencer",
-      content: "These products have completely transformed my makeup routine. The quality is unmatched!",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&h=100&fit=crop&crop=face"
+      icon: Heart,
+      title: 'Cruelty-Free',
+      description: 'We believe beauty should never come at the expense of our furry friends. All our products are 100% cruelty-free.',
+      color: 'pink'
     },
     {
-      name: "Arjun Patel",
-      role: "Makeup Artist",
-      content: "I use these products on all my clients. The pigmentation and lasting power are incredible.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+      icon: Sparkles,
+      title: 'Premium Quality',
+      description: 'We use only the finest ingredients and cutting-edge formulations to create products that deliver exceptional results.',
+      color: 'purple'
     },
     {
-      name: "Sneha Reddy",
-      role: "Customer",
-      content: "Finally found my perfect shade! The inclusive range is exactly what the industry needed.",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face"
+      icon: Users,
+      title: 'Inclusive Beauty',
+      description: 'Beauty comes in all forms. Our diverse range of shades and products celebrates every skin tone and type.',
+      color: 'pink'
+    },
+    {
+      icon: Globe,
+      title: 'Sustainable Future',
+      description: 'We are committed to reducing our environmental impact through sustainable packaging and responsible sourcing.',
+      color: 'purple'
     }
   ];
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gray-50">
+      
       {/* Hero Section */}
-      <motion.section 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        className="relative h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 to-purple-50"
-      >
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&h=800&fit=crop')"
-          }}
-        ></div>
+      <section className="relative bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 py-20 lg:py-32 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-600/5 to-purple-600/5"></div>
         
-        <motion.div 
-          initial={{ y: 50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="relative z-10 text-center text-white px-4"
-        >
-          <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
-            Our Story
-          </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed">
-            Creating beauty that celebrates individuality, 
-            <br />one shade at a time.
-          </p>
-        </motion.div>
-      </motion.section>
-
-      {/* Founder Message */}
-      <section className="py-20 px-4 max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-16 items-center">
-          <motion.div
-            initial={{ x: -50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <img 
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=600&fit=crop" 
-              alt="Founder" 
-              className="rounded-2xl shadow-2xl w-full"
-            />
-          </motion.div>
-          
-          <motion.div
-            initial={{ x: 50, opacity: 0 }}
-            whileInView={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="space-y-6"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
-              A Message From Our Founder
-            </h2>
-            <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
-              <p>
-                "I created this brand to give everyone access to high-quality cosmetics that make you feel confident and beautiful. Beauty should be inclusive, accessible, and authentic to who you are."
-              </p>
-              <p>
-                "Every product in our line is carefully formulated with clean, vegan ingredients that are good for your skin. We never compromise on quality, pigmentation, or performance."
-              </p>
-              <p>
-                "This is just the beginning. We're constantly innovating and creating new products that celebrate the diversity and uniqueness of every individual."
-              </p>
-            </div>
-            <div className="pt-4">
-              <p className="text-2xl font-semibold text-pink-600">xo, Founder 💕</p>
-              <div className="flex items-center gap-4 mt-4">
-                <Instagram className="w-6 h-6 text-pink-600" />
-                <span className="text-gray-600">Follow @ourcosmetics for updates</span>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Our Journey
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              From a simple idea to a global beauty revolution
-            </p>
-          </motion.div>
-
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-pink-200"></div>
-            
-            {timelineData.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                viewport={{ once: true }}
-                className={`relative flex items-center mb-16 ${
-                  index % 2 === 0 ? 'justify-start' : 'justify-end'
-                }`}
-              >
-                <div className={`w-5/12 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                  <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="p-3 bg-pink-100 rounded-full text-pink-600">
-                        {item.icon}
-                      </div>
-                      <span className="text-2xl font-bold text-pink-600">{item.year}</span>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{item.description}</p>
-                  </div>
-                </div>
-                
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-pink-600 rounded-full border-4 border-white shadow-lg"></div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Achievements */}
-      <section className="py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Our Achievements
-            </h2>
-            <p className="text-xl text-gray-600">
-              Numbers that reflect our commitment to excellence
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-4 gap-8">
-            {achievements.map((achievement, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1, duration: 0.8 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="text-center p-8 bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl hover:shadow-lg transition-all"
-              >
-                <div className="inline-flex p-4 bg-white rounded-full text-pink-600 mb-6 shadow-md">
-                  {achievement.icon}
-                </div>
-                <h3 className="text-4xl font-bold text-gray-900 mb-2">{achievement.number}</h3>
-                <p className="text-gray-600 font-medium">{achievement.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 bg-gray-900">
-        <div className="max-w-6xl mx-auto px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-              What People Say
-            </h2>
-            <p className="text-xl text-gray-300">
-              Real stories from our amazing community
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 50, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -5 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all"
-              >
-                <div className="flex items-center gap-4 mb-6">
-                  <img 
-                    src={testimonial.image} 
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover"
-                  />
-                  <div>
-                    <h4 className="font-bold text-gray-900">{testimonial.name}</h4>
-                    <p className="text-gray-600 text-sm">{testimonial.role}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700 leading-relaxed italic">"{testimonial.content}"</p>
-                <div className="flex gap-1 mt-4">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-pink-600 to-purple-600">
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Join Our Beauty Revolution
-            </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Be part of a community that celebrates individuality, authenticity, and the power of self-expression through beauty.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-white text-pink-600 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg transition-all"
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center justify-center space-x-2 mb-6"
             >
-              Shop Our Collection
-            </motion.button>
+              <Sparkles className="w-8 h-8 text-pink-500" />
+              <span className="text-pink-600 font-semibold text-lg">About Us</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl lg:text-6xl font-bold text-gray-900 mb-6"
+            >
+              Redefining Beauty,
+              <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                {' '}One Product at a Time
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            >
+              Since our launch, Kylie Cosmetics has been at the forefront of beauty innovation, 
+              creating products that empower you to express your unique style and embrace your natural beauty.
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className={`w-16 h-16 mx-auto mb-4 bg-${stat.color}-100 rounded-full flex items-center justify-center`}>
+                  <stat.icon className={`w-8 h-8 text-${stat.color}-500`} />
+                </div>
+                <div className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Story Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            
+            {/* Story Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
+              <div className="space-y-6 text-gray-600 leading-relaxed">
+                <p>
+                  What started as a passion project has grown into a global beauty empire. 
+                  Kylie Cosmetics was born from the desire to create high-quality, accessible 
+                  beauty products that make everyone feel confident and beautiful.
+                </p>
+                <p>
+                  Our journey began with the iconic Lip Kits, and since then, we've expanded 
+                  our range to include everything from eyeshadows to skincare. Each product 
+                  is carefully crafted with love, attention to detail, and a commitment to excellence.
+                </p>
+                <p>
+                  Today, we're proud to serve millions of customers worldwide, helping them 
+                  express their creativity and embrace their unique beauty. This is just the 
+                  beginning of our story.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Story Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="relative"
+            >
+              <div className="aspect-square bg-gradient-to-br from-pink-200 to-purple-300 rounded-3xl overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-6 -right-6 w-24 h-24 bg-pink-500 rounded-full opacity-20"></div>
+              <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-purple-500 rounded-full opacity-15"></div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Values</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              These core principles guide everything we do, from product development to customer service.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {values.map((value, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-gray-50 rounded-2xl p-8 hover:shadow-lg transition-shadow group"
+              >
+                <div className={`w-16 h-16 bg-${value.color}-100 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+                  <value.icon className={`w-8 h-8 text-${value.color}-500`} />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Behind every great product is an incredible team of passionate individuals dedicated to bringing you the best in beauty.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                name: 'Sarah Johnson',
+                role: 'Head of Product Development',
+                image: '/api/placeholder/300/300'
+              },
+              {
+                name: 'Michael Chen',
+                role: 'Creative Director',
+                image: '/api/placeholder/300/300'
+              },
+              {
+                name: 'Emily Rodriguez',
+                role: 'Customer Experience Lead',
+                image: '/api/placeholder/300/300'
+              }
+            ].map((member, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center group"
+              >
+                <div className="relative mb-6">
+                  <div className="w-48 h-48 mx-auto bg-gradient-to-br from-pink-200 to-purple-300 rounded-full overflow-hidden group-hover:scale-105 transition-transform">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                <p className="text-gray-600">{member.role}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission Statement */}
+      <section className="py-20 bg-gradient-to-r from-pink-500 to-purple-600 text-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="w-20 h-20 mx-auto mb-8 bg-white/20 rounded-full flex items-center justify-center">
+              <Heart className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-4xl font-bold mb-6">Our Mission</h2>
+            <p className="text-xl leading-relaxed opacity-95">
+              "To empower everyone to feel confident and beautiful in their own skin by providing 
+              high-quality, innovative beauty products that celebrate individuality and self-expression. 
+              We believe that beauty is not one-size-fits-all, and our mission is to create products 
+              that help you discover and embrace your unique beauty."
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact CTA */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+            <p className="text-lg text-gray-600 mb-8">
+              Have questions about our products or want to learn more about our brand? We'd love to hear from you!
+            </p>
+            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
+              <a
+                href="mailto:hello@kyliecosmetics.com"
+                className="inline-flex items-center justify-center px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-xl transition-colors"
+              >
+                Contact Us
+              </a>
+              <a
+                href="#"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white font-semibold rounded-xl transition-colors"
+              >
+                Follow Us
+              </a>
+            </div>
           </motion.div>
         </div>
       </section>

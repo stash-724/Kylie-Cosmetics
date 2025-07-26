@@ -1,10 +1,10 @@
+// src/components/Navbar.jsx
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ShoppingCart, User } from 'lucide-react';
-import { DarkModeToggle, ThemeSelector } from './DarkModeProvider';
 
-const Navbar = () => {
+const Navbar = ({ cartItemCount = 0, openCart }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navLinks = [
@@ -13,6 +13,10 @@ const Navbar = () => {
     { to: '/quickbuy', label: 'Best Sellers' },
     { to: '/about', label: 'About' }
   ];
+
+  const handleCartClick = () => {
+    openCart();
+  };
 
   return (
     <motion.nav 
@@ -52,10 +56,7 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            <DarkModeToggle />
-            <ThemeSelector />
-            
+          <div className="hidden md:flex items-center space-x-4"> 
             <Link
               to="/login"
               className="p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
@@ -66,22 +67,28 @@ const Navbar = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={handleCartClick}
               className="relative p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               <ShoppingCart className="w-5 h-5" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
-                3
-              </span>
+              {cartItemCount > 0 && (
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center font-medium"
+                >
+                  {cartItemCount > 99 ? '99+' : cartItemCount}
+                </motion.span>
+              )}
             </motion.button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-2">
-            <DarkModeToggle />
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="p-2 text-gray-700 dark:text-gray-300"
+              className="p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </motion.button>
@@ -112,7 +119,7 @@ const Navbar = () => {
                   <Link
                     to="/login"
                     onClick={() => setIsMenuOpen(false)}
-                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300"
+                    className="flex items-center space-x-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
                   >
                     <User className="w-5 h-5" />
                     <span>Login</span>
@@ -120,12 +127,18 @@ const Navbar = () => {
                   
                   <motion.button
                     whileTap={{ scale: 0.95 }}
-                    className="relative p-2 text-gray-700 dark:text-gray-300"
+                    onClick={() => {
+                      handleCartClick();
+                      setIsMenuOpen(false);
+                    }}
+                    className="relative p-2 text-gray-700 dark:text-gray-300 hover:text-pink-600 dark:hover:text-pink-400 transition-colors"
                   >
                     <ShoppingCart className="w-5 h-5" />
-                    <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center">
-                      3
-                    </span>
+                    {cartItemCount > 0 && (
+                      <span className="absolute -top-1 -right-1 w-5 h-5 bg-pink-500 text-white text-xs rounded-full flex items-center justify-center font-medium">
+                        {cartItemCount > 99 ? '99+' : cartItemCount}
+                      </span>
+                    )}
                   </motion.button>
                 </div>
               </div>
