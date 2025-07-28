@@ -1,4 +1,4 @@
-// src/components/ProductCard.jsx
+// src/components/ui/ProductCard.jsx
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ShoppingCart, Heart, Star } from 'lucide-react';
@@ -21,6 +21,14 @@ const ProductCard = ({ product, addToCart }) => {
 
   const toggleLike = () => {
     setIsLiked(!isLiked);
+  };
+
+  // Format price - handle both number and decimal formats
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price >= 100 ? `₹${price}` : `$${price.toFixed(2)}`;
+    }
+    return `₹${price}`;
   };
 
   return (
@@ -62,6 +70,20 @@ const ProductCard = ({ product, addToCart }) => {
             SALE
           </div>
         )}
+
+        {/* Best Seller Badge */}
+        {product.bestSeller && (
+          <div className="absolute top-3 left-3 bg-pink-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+            BEST SELLER
+          </div>
+        )}
+
+        {/* Custom Badge */}
+        {product.badge && !product.bestSeller && (
+          <div className="absolute top-3 left-3 bg-purple-500 text-white px-2 py-1 rounded-md text-xs font-medium">
+            {product.badge}
+          </div>
+        )}
       </div>
 
       {/* Product Info */}
@@ -100,14 +122,21 @@ const ProductCard = ({ product, addToCart }) => {
         {/* Price */}
         <div className="flex items-center space-x-2 mb-3">
           <span className="text-lg font-bold text-gray-900">
-            ${product.price.toFixed(2)}
+            {formatPrice(product.price)}
           </span>
           {product.originalPrice && product.originalPrice > product.price && (
             <span className="text-sm text-gray-500 line-through">
-              ${product.originalPrice.toFixed(2)}
+              {formatPrice(product.originalPrice)}
             </span>
           )}
         </div>
+
+        {/* Description (if available and short) */}
+        {product.description && product.description.length <= 60 && (
+          <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+            {product.description}
+          </p>
+        )}
 
         {/* Add to Cart Button */}
         <motion.button

@@ -1,87 +1,18 @@
-// src/pages/Products.jsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom'; 
 import ProductCard from '../components/ui/ProductCard';
 import { Search, Filter, Grid, List } from 'lucide-react';
+import productsData from '../data/product';
 
 const Products = ({ addToCart }) => {
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [products] = useState(productsData); // Use imported data directly
+  const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState('grid');
-
-  // Sample products data - replace with your actual data source
-  useEffect(() => {
-    const sampleProducts = [
-      {
-        id: 1,
-        name: 'Kylie Lip Kit - Candy K',
-        category: 'Lips',
-        price: 29.00,
-        originalPrice: 35.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.5,
-        reviewCount: 1234,
-        description: 'Long-lasting matte liquid lipstick with matching lip liner.'
-      },
-      {
-        id: 2,
-        name: 'Kylie Skin Face Moisturizer',
-        category: 'Skincare',
-        price: 24.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.3,
-        reviewCount: 567,
-        description: 'Hydrating daily moisturizer for all skin types.'
-      },
-      {
-        id: 3,
-        name: 'Kylie Cosmetics Eyeshadow Palette',
-        category: 'Eyes',
-        price: 42.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.7,
-        reviewCount: 892,
-        description: '18 highly pigmented eyeshadow shades.'
-      },
-      {
-        id: 4,
-        name: 'Kylie Blush - Virginity',
-        category: 'Face',
-        price: 18.00,
-        originalPrice: 22.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.2,
-        reviewCount: 445,
-        description: 'Silky smooth powder blush for a natural flush.'
-      },
-      {
-        id: 5,
-        name: 'Kylie Glossy Lip Gloss',
-        category: 'Lips',
-        price: 15.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.4,
-        reviewCount: 778,
-        description: 'High-shine lip gloss with moisturizing formula.'
-      },
-      {
-        id: 6,
-        name: 'Kylie Setting Spray',
-        category: 'Face',
-        price: 19.00,
-        image: '/api/placeholder/300/300',
-        rating: 4.1,
-        reviewCount: 334,
-        description: 'Long-lasting makeup setting spray.'
-      }
-    ];
-
-    setProducts(sampleProducts);
-    setFilteredProducts(sampleProducts);
-  }, []);
+  // const [modalProduct, setModalProduct] = useState(null);
 
   // Filter and search logic
   useEffect(() => {
@@ -89,7 +20,7 @@ const Products = ({ addToCart }) => {
 
     // Filter by category
     if (selectedCategory !== 'all') {
-      filtered = filtered.filter(product => 
+      filtered = filtered.filter(product =>
         product.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
@@ -103,7 +34,7 @@ const Products = ({ addToCart }) => {
     }
 
     // Sort products
-    filtered.sort((a, b) => {
+    filtered = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
           return a.price - b.price;
@@ -122,10 +53,13 @@ const Products = ({ addToCart }) => {
 
   const categories = ['all', ...new Set(products.map(p => p.category))];
 
+  // Modal close handler
+  const closeModal = () => setModalProduct(null);
+
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Page Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -148,7 +82,7 @@ const Products = ({ addToCart }) => {
           className="bg-white rounded-xl shadow-sm p-6 mb-8"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-            
+
             {/* Search */}
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -226,26 +160,42 @@ const Products = ({ addToCart }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className={`grid gap-6 ${
-            viewMode === 'grid' 
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' 
+          className={`grid gap-6 ${viewMode === 'grid'
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
               : 'grid-cols-1'
-          }`}
+            }`}
         >
           {filteredProducts.map((product, index) => (
-            <motion.div
-              key={product.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <ProductCard
-                product={product}
-                addToCart={addToCart}
-              />
-            </motion.div>
+            <Link to={`/product/${product.id}`}>
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <ProductCard product={product} addToCart={addToCart} />
+              </motion.div>
+            </Link>
           ))}
         </motion.div>
+
+        {/* Modal for Product Details */}
+        {/* {modalProduct &&
+          createPortal(
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+              <div className="bg-white rounded-lg shadow-lg max-w-lg w-full relative p-6">
+                <button
+                  className="absolute top-2 right-2 text-gray-500 hover:text-pink-500 text-2xl"
+                  onClick={closeModal}
+                >
+                  &times;
+                </button>
+                <ProductDetail product={modalProduct} addToCart={addToCart} isModal />
+              </div>
+            </div>,
+            document.body
+          )
+        } */}
 
         {/* No Results */}
         {filteredProducts.length === 0 && (

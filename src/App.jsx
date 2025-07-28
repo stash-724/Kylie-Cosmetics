@@ -8,7 +8,7 @@ import Products from './pages/Products';
 import QuickBuy from './pages/QuickBuy';
 import About from './pages/About';
 import Login from './pages/Login';
-
+import ProductDetail from './pages/ProductDetail'; // ✅ Import it
 const App = () => {
   // Cart State Management
   const [cartItems, setCartItems] = useState([]);
@@ -18,7 +18,7 @@ const App = () => {
   const addToCart = (product, quantity = 1) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item.id === product.id);
-      
+
       if (existingItem) {
         // If item exists, update quantity
         return prevItems.map(item =>
@@ -79,19 +79,23 @@ const App = () => {
   return (
     <Router>
       <div className="min-h-screen bg-gray-50">
-        <Navbar 
+        <Navbar
           cartItemCount={cartItemCount}
           openCart={openCart}
         />
-        
+
         <main>
+
+
           <Routes>
             <Route path="/" element={<Home addToCart={addToCart} />} />
             <Route path="/products" element={<Products addToCart={addToCart} />} />
+            <Route path="/product/:id" element={<ProductDetail addToCart={addToCart} />} /> {/* ✅ Add this line */}
             <Route path="/quickbuy" element={<QuickBuy addToCart={addToCart} />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
           </Routes>
+
         </main>
 
         {/* Cart Sidebar */}

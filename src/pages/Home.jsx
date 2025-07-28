@@ -4,6 +4,10 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
 import { ArrowRight, Star, Heart, Sparkles, ShoppingBag } from 'lucide-react';
+import heroImg from '../assets/images/hero/desktop.webp';
+import prod1 from '../assets/images/products/lip-kit-in-shade.jpg';
+import prod2 from '../assets/images/products/eyeshadow-palette.jpg';
+import prod3 from '../assets/images/products/face-moisturizer.jpg';
 
 const Home = ({ addToCart }) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -17,7 +21,7 @@ const Home = ({ addToCart }) => {
         category: 'Lips',
         price: 29.00,
         originalPrice: 35.00,
-        image: '/api/placeholder/300/300',
+        image: prod1, // use imported image
         rating: 4.8,
         reviewCount: 2341,
         description: 'Our signature matte liquid lipstick with matching lip liner.'
@@ -27,7 +31,7 @@ const Home = ({ addToCart }) => {
         name: 'Kylie Cosmetics Eyeshadow Palette',
         category: 'Eyes',
         price: 42.00,
-        image: '/api/placeholder/300/300',
+        image: prod2, // use imported image
         rating: 4.7,
         reviewCount: 1892,
         description: '18 highly pigmented eyeshadow shades for any look.'
@@ -37,7 +41,7 @@ const Home = ({ addToCart }) => {
         name: 'Kylie Skin Face Moisturizer',
         category: 'Skincare',
         price: 24.00,
-        image: '/api/placeholder/300/300',
+        image: prod3, // use imported image
         rating: 4.6,
         reviewCount: 1567,
         description: 'Hydrating daily moisturizer for all skin types.'
@@ -127,7 +131,7 @@ const Home = ({ addToCart }) => {
             >
               <div className="relative w-full h-96 lg:h-[500px] bg-gradient-to-br from-pink-200 to-purple-300 rounded-3xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent">
-                  <img className='object-cover w-full h-full' src="src/assets/images/hero/desktop.webp" alt="" />
+                  <img className='object-cover w-full h-full' src={heroImg} alt="Hero" />
                 </div>
                 <div className="absolute bottom-8 left-8 right-8 text-white">
                   <p className="text-lg font-semibold mb-2">Featured Collection</p>
