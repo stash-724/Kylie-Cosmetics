@@ -1,73 +1,95 @@
-import { useState, useEffect } from "react";
+// src/components/common/Loader2.jsx
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Loader = ({ onComplete }) => {
+export default function Loader({ onComplete }) {
   const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const [hideLoader, setHideLoader] = useState(false);
+  const [barComplete, setBarComplete] = useState(false);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCount((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            setIsVisible(false);
-            onComplete && onComplete();
-          }, 500);
-          return 100;
-        }
-        return prev + 1;
-      });
-    }, 30);
+    // Animate counter to 100 in ~1.2s
+    const steps = 40;
+    const duration = 1200; // total time in ms
+    const stepTime = duration / steps;
 
-    return () => clearInterval(timer);
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setCount(Math.min(i * (100 / steps), 100));
+      if (i >= steps) {
+        clearInterval(interval);
+        setTimeout(() => setBarComplete(true), 200);
+        setTimeout(() => {
+          setHideLoader(true);
+          if (onComplete) onComplete();
+        }, 900); // exit quickly after complete
+      }
+    }, stepTime);
+
+    return () => clearInterval(interval);
   }, [onComplete]);
 
-  if (!isVisible) return null;
+  const digits = String(Math.floor(count)).padStart(3, "0").split("");
 
   return (
-    <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
-      <div className="text-center">
-        {/* Counter */}
-        <div className="text-white text-6xl md:text-8xl font-light mb-8 tracking-wider">
-          {count.toString().padStart(3, '0')}
-        </div>
-        
-        {/* Progress Bar */}
-        <div className="w-64 h-0.5 bg-gray-800 mx-auto mb-12">
-          <div 
-            className="h-full bg-gradient-to-r from-pink-500 to-purple-600 transition-all duration-100"
-            style={{ width: `${count}%` }}
-          />
-        </div>
+    <AnimatePresence>
+      {!hideLoader && (
+        <motion.div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
+          {/* KC Logo */}
+          <motion.div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[120%]"
+            animate={{
+              scale: barComplete ? [1, 40, 60] : 1,
+              opacity: barComplete
+                ? [1, 0.8, 0.4]
+                : 0.4 + (count / 100) * 0.6,
+            }}
+            transition={{
+              duration: barComplete ? 0.9 : 0.1,
+              ease: "easeInOut",
+            }}
+            style={{ mixBlendMode: "screen", transformOrigin: "center" }}
+          >
+            <motion.img
+              src="/images/KC.svg"
+              alt="KC Logo"
+              animate={{
+                filter: `brightness(${0.7 + (count / 100) * 0.3})`,
+              }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "18vh", height: "18vh" }}
+            />
+          </motion.div>
 
-        {/* KC Logo Animation */}
-        <div 
-          className={`transition-all duration-1000 ${
-            count === 100 ? 'scale-150 opacity-100' : 'scale-100 opacity-70'
-          }`}
-        >
-          <div className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
-            KC
+          {/* Progress Bar */}
+          <motion.div
+            className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[260px] h-[6px] bg-gray-800 overflow-hidden rounded-full"
+            animate={barComplete ? { y: -80, opacity: 0 } : {}}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <motion.div
+              className="h-full bg-white origin-left"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: count / 100 }}
+              transition={{ duration: 0.01 }}
+            />
+          </motion.div>
+
+          {/* Counter */}
+          <div className="flex bottom-6 left-6 absolute">
+            {digits.map((digit, idx) => (
+              <motion.div
+                key={idx + digit}
+                className="text-white text-[8vh] h-[8vh] flex items-center justify-center overflow-hidden"
+                style={{ width: "1em" }}
+              >
+                {digit}
+              </motion.div>
+            ))}
           </div>
-          <div className="text-white text-sm md:text-base font-light tracking-widest mt-2">
-            KYLIE COSMETICS
-          </div>
-        </div>
-
-        {/* Loading Text */}
-        <div className="text-gray-400 text-xs md:text-sm mt-8 tracking-wider">
-          {count < 100 ? 'LOADING...' : 'WELCOME'}
-        </div>
-      </div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-pink-500 rounded-full opacity-30 animate-pulse" />
-        <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-purple-500 rounded-full opacity-40 animate-pulse delay-300" />
-        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 bg-pink-400 rounded-full opacity-20 animate-pulse delay-700" />
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
-};
-
-export default Loader;
+}

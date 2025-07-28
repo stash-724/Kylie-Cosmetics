@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
 import { Search, Filter, Grid, List } from 'lucide-react';
 import productsData from '../data/product';
 
 const Products = ({ addToCart }) => {
-  const [products] = useState(productsData); // Use imported data directly
+  const [products] = useState(productsData);
   const [filteredProducts, setFilteredProducts] = useState(productsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('name');
   const [viewMode, setViewMode] = useState('grid');
-  // const [modalProduct, setModalProduct] = useState(null);
 
-  // Filter and search logic
   useEffect(() => {
     let filtered = products;
 
@@ -33,7 +31,7 @@ const Products = ({ addToCart }) => {
       );
     }
 
-    // Sort products
+    // Sort
     filtered = [...filtered].sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
@@ -53,14 +51,10 @@ const Products = ({ addToCart }) => {
 
   const categories = ['all', ...new Set(products.map(p => p.category))];
 
-  // Modal close handler
-  const closeModal = () => setModalProduct(null);
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Page Header */}
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,7 +68,7 @@ const Products = ({ addToCart }) => {
           </p>
         </motion.div>
 
-        {/* Filters and Search */}
+        {/* Filters */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -82,8 +76,6 @@ const Products = ({ addToCart }) => {
           className="bg-white rounded-xl shadow-sm p-6 mb-8"
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-
-            {/* Search */}
             <div className="relative flex-1 max-w-md">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -96,7 +88,6 @@ const Products = ({ addToCart }) => {
             </div>
 
             <div className="flex flex-wrap items-center space-x-4">
-              {/* Category Filter */}
               <div className="flex items-center space-x-2">
                 <Filter className="w-5 h-5 text-gray-500" />
                 <select
@@ -112,7 +103,6 @@ const Products = ({ addToCart }) => {
                 </select>
               </div>
 
-              {/* Sort */}
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
@@ -124,7 +114,6 @@ const Products = ({ addToCart }) => {
                 <option value="rating">Highest Rated</option>
               </select>
 
-              {/* View Mode Toggle */}
               <div className="flex border border-gray-300 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setViewMode('grid')}
@@ -143,7 +132,7 @@ const Products = ({ addToCart }) => {
           </div>
         </motion.div>
 
-        {/* Results Count */}
+        {/* Count */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -155,20 +144,19 @@ const Products = ({ addToCart }) => {
           </p>
         </motion.div>
 
-        {/* Products Grid */}
+        {/* Product Grid */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           className={`grid gap-6 ${viewMode === 'grid'
-              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-              : 'grid-cols-1'
+            ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+            : 'grid-cols-1'
             }`}
         >
           {filteredProducts.map((product, index) => (
-            <Link to={`/product/${product.id}`}>
+            <Link key={product.id} to={`/product/${product.id}`}>
               <motion.div
-                key={product.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
@@ -178,24 +166,6 @@ const Products = ({ addToCart }) => {
             </Link>
           ))}
         </motion.div>
-
-        {/* Modal for Product Details */}
-        {/* {modalProduct &&
-          createPortal(
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-              <div className="bg-white rounded-lg shadow-lg max-w-lg w-full relative p-6">
-                <button
-                  className="absolute top-2 right-2 text-gray-500 hover:text-pink-500 text-2xl"
-                  onClick={closeModal}
-                >
-                  &times;
-                </button>
-                <ProductDetail product={modalProduct} addToCart={addToCart} isModal />
-              </div>
-            </div>,
-            document.body
-          )
-        } */}
 
         {/* No Results */}
         {filteredProducts.length === 0 && (

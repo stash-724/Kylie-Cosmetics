@@ -1,13 +1,8 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ui/ProductCard';
 import { ArrowRight, Star, Heart, Sparkles, ShoppingBag } from 'lucide-react';
-import heroImg from '../assets/images/hero/desktop.webp';
-import prod1 from '../assets/images/products/lip-kit-in-shade.jpg';
-import prod2 from '../assets/images/products/eyeshadow-palette.jpg';
-import prod3 from '../assets/images/products/face-moisturizer.jpg';
 
 const Home = ({ addToCart }) => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -21,17 +16,17 @@ const Home = ({ addToCart }) => {
         category: 'Lips',
         price: 29.00,
         originalPrice: 35.00,
-        image: prod1, // use imported image
+        image: '/images/matte_lip_kit_bare_prod.webp',
         rating: 4.8,
         reviewCount: 2341,
-        description: 'Our signature matte liquid lipstick with matching lip liner.'
+        description: 'Our signature matte liquid lipstick with lip liner.'
       },
       {
         id: 2,
         name: 'Kylie Cosmetics Eyeshadow Palette',
         category: 'Eyes',
         price: 42.00,
-        image: prod2, // use imported image
+        image: '/images/eyeshadow-palette.jpg',
         rating: 4.7,
         reviewCount: 1892,
         description: '18 highly pigmented eyeshadow shades for any look.'
@@ -41,7 +36,7 @@ const Home = ({ addToCart }) => {
         name: 'Kylie Skin Face Moisturizer',
         category: 'Skincare',
         price: 24.00,
-        image: prod3, // use imported image
+        image: '/images/face-moisturizer.jpg',
         rating: 4.6,
         reviewCount: 1567,
         description: 'Hydrating daily moisturizer for all skin types.'
@@ -53,14 +48,14 @@ const Home = ({ addToCart }) => {
 
   return (
     <div className="min-h-screen">
-      
+
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-pink-600/10 to-purple-600/10"></div>
-        
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            
+
             {/* Hero Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -112,7 +107,7 @@ const Home = ({ addToCart }) => {
                   Shop Now
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
-                
+
                 <Link
                   to="/quickbuy"
                   className="inline-flex items-center justify-center px-8 py-4 border-2 border-pink-500 text-pink-600 hover:bg-pink-500 hover:text-white font-semibold rounded-xl transition-colors"
@@ -131,7 +126,7 @@ const Home = ({ addToCart }) => {
             >
               <div className="relative w-full h-96 lg:h-[500px] bg-gradient-to-br from-pink-200 to-purple-300 rounded-3xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent">
-                  <img className='object-cover w-full h-full' src={heroImg} alt="Hero" />
+                  <img className='object-cover w-full h-full' src="/images/desktop.webp" alt="Hero" />
                 </div>
                 <div className="absolute bottom-8 left-8 right-8 text-white">
                   <p className="text-lg font-semibold mb-2">Featured Collection</p>

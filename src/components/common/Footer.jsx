@@ -18,13 +18,13 @@ const Footer = () => {
               Discover premium beauty products that enhance your natural glow. From bold lips to radiant skin, we've got everything you need to feel confident and beautiful.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-300 hover:text-pink-400 transition-colors">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-400 transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-pink-400 transition-colors">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-400 transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-gray-300 hover:text-pink-400 transition-colors">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-pink-400 transition-colors">
                 <Facebook size={20} />
               </a>
             </div>
@@ -45,23 +45,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/quick-buy" className="text-gray-300 hover:text-pink-400 transition-colors">
+                <Link to="/quickbuy" className="text-gray-300 hover:text-pink-400 transition-colors">
                   Quick Buy
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/FACE" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  Face Products
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/LIP" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  Lip Products
-                </Link>
-              </li>
-              <li>
-                <Link to="/category/EYES" className="text-gray-300 hover:text-pink-400 transition-colors">
-                  Eye Products
                 </Link>
               </li>
             </ul>
@@ -93,13 +78,13 @@ const Footer = () => {
             © 2025 Kylie Cosmetics. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
+            <a href="/privacy-policy" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
+            <a href="/terms-of-service" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
+            <a href="/shipping" className="text-gray-300 hover:text-pink-400 text-sm transition-colors">
               Shipping Info
             </a>
           </div>
