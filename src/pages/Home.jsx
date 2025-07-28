@@ -126,7 +126,9 @@ const Home = ({ addToCart }) => {
               className="relative"
             >
               <div className="relative w-full h-96 lg:h-[500px] bg-gradient-to-br from-pink-200 to-purple-300 rounded-3xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent">
+                  <img className='object-cover w-full h-full' src="src/assets/images/hero/desktop.webp" alt="" />
+                </div>
                 <div className="absolute bottom-8 left-8 right-8 text-white">
                   <p className="text-lg font-semibold mb-2">Featured Collection</p>
                   <p className="text-sm opacity-90">Discover our latest makeup essentials</p>

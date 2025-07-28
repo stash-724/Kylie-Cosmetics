@@ -4,7 +4,7 @@ const products = [
     name: "Glossy Lip Balm",
     category: "LIP",
     price: 899,
-    image: "/assets/lip1.jpg",
+    image: "src/assets/images/brand/matte_lip_kit_bare_800x.webp",
     description: "Hydrating, long-lasting, non-sticky lip balm for daily glow.",
     bestSeller: true
   },
